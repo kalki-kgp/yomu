@@ -1,0 +1,5 @@
+.DS_Store
+*.xcodeproj
+build/
+App/Info.plist
+Local.xcconfig

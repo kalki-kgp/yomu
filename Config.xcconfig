@@ -1,0 +1,3 @@
+// Signing lives in Local.xcconfig, which is not checked in:
+//   DEVELOPMENT_TEAM = <your team id>
+#include? "Local.xcconfig"
