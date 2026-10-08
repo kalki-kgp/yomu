@@ -69,7 +69,13 @@ struct DownloadQueueView: View {
             ForEach(downloads.queue) { job in
                 VStack(alignment: .leading, spacing: 4) {
                     Text(verbatim: job.title).font(.body).lineLimit(1)
-                    Text(verbatim: job.name).font(.subheadline).foregroundStyle(.secondary).lineLimit(1)
+                    HStack {
+                        Text(verbatim: job.name).lineLimit(1)
+                        Spacer()
+                        Text((downloads.progress[job.chapter] ?? 0).formatted(.percent.precision(.fractionLength(0)))).monospacedDigit()
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
                     ProgressView(value: downloads.progress[job.chapter] ?? 0)
                 }
                 .swipeActions {

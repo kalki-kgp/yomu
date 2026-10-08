@@ -122,6 +122,24 @@ struct UpdatesView: View {
 }
 
 /// The trailing button on a chapter row: save it to the phone, or remove the saved copy.
+/// A ring that fills as the pages arrive, with the stop square the tap acts on.
+struct DownloadRing: View {
+    let progress: Double
+
+    var body: some View {
+        ZStack {
+            Circle().stroke(.quaternary, lineWidth: 2.5)
+            Circle()
+                .trim(from: 0, to: max(progress, 0.03))
+                .stroke(.tint, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .animation(.snappy, value: progress)
+            RoundedRectangle(cornerRadius: 1.5).fill(.tint).frame(width: 7, height: 7)
+        }
+        .frame(width: 22, height: 22)
+    }
+}
+
 struct DownloadButton: View {
     let chapter: Chapter
     let title: String
@@ -141,7 +159,7 @@ struct DownloadButton: View {
                 Button {
                     downloads.cancel(chapter.id)
                 } label: {
-                    ProgressView(value: progress).progressViewStyle(.circular)
+                    DownloadRing(progress: progress)
                 }
             } else {
                 Button {
